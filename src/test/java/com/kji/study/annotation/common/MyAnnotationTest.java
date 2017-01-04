@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import org.junit.Test;
+import org.springframework.core.annotation.AnnotationUtils;
 
 /**
  * @author kj
@@ -13,6 +14,7 @@ import org.junit.Test;
  *
  *
  */
+@MyClassAnnotation
 public class MyAnnotationTest {
 
 	
@@ -117,6 +119,17 @@ public class MyAnnotationTest {
 			}
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * Spring AnnotationUtils를 사용하여 해당 클래스의 annotation을 찾는다.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testAnnotationUtils() throws Exception {
+		System.out.println(AnnotationUtils.findAnnotation(MyAnnotationTest.class, MyClassAnnotation.class));
 	}
 	
 }

@@ -26,13 +26,12 @@ public class InstantiatingContainerTest {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"classpath:/services.xml", "classpath:/daos.xml"});
 		PetStoreService service = (PetStoreServiceImpl)context.getBean("petStore", PetStoreService.class);
-		
 		System.out.println(service.getPet());
 		
 	}
 	
 	/*
-	 * relative path is possible, nub not recommended.
+	 * relative path is possible, but not recommended.
 	 * 절대 경로를 모두 적는 것을 추천한다. 
 	 */
 	@Test
@@ -44,6 +43,11 @@ public class InstantiatingContainerTest {
 		
 	}
 	
+	/**
+	 * xml 파일에 resource 를 import 하여 여러 xml 파일로 부터 bean객체를 생성하는 테스트
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testInstantiatingContainer_xml_import() throws Exception {
 		
@@ -51,7 +55,6 @@ public class InstantiatingContainerTest {
 		PetStoreService service = (PetStoreServiceImpl)context.getBean("petStore");
 		System.out.println(service.getPet());
 
-		
 	}
 	
 }
