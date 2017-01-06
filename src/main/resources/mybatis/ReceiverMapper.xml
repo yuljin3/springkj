@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kji.study.mybatis.origin.ReceiverMapper">
+
+<select id="selectDetailReceives" resultType="Receiver">
+	SELECT 
+		request_id as requestId
+		, mail_seq as mailSequence
+		, receive_mail_address as receiveMailAddr
+		, receive_type_code as receiveType
+	FROM email_receive_201612
+	WHERE request_id = #{requestId}
+	and mail_seq = 0
+</select>
+
+<resultMap type="Receiver" id="receiverResultMap">
+	<id property="requestId"  column="requestId" />
+	<result property="mailSequence" column="mailSequence"/>
+	<result property="receiveMailAddr" column="receiveMailAddr" typeHandler="com.kji.study.mybatis.origin.ExampleTypeHandler"/>
+	<result property="receiveType" column="receiveType" />
+</resultMap>
+
+<select id="selectDetailReceiveHandler" resultMap="receiverResultMap">
+	SELECT 
+		request_id as requestId
+		, mail_seq as mailSequence
+		, receive_mail_address as receiveMailAddr
+		, receive_type_code as receiveType
+	FROM email_receive_201612
+	WHERE request_id = #{requestId}
+	and mail_seq = 0
+</select>
+
+<resultMap type="ReceiverAssosiation" id="receiverAssosiationResultMap">
+	<constructor>
+		<idArg column="requestId" javaType="String"/>
+		<arg column="mailSequence" javaType="Integer"/>
+	</constructor>
+	<result property="receiveMailAddr" column="receiveMailAddr" typeHandler="com.kji.study.mybatis.origin.ExampleTypeHandler"/>
+	<result property="receiveType" column="receiveType" />
+</resultMap>
+
+<select id="selectDetailReceivAssociation" resultMap="receiverAssosiationResultMap">
+	SELECT 
+		request_id as requestId
+		, mail_seq as mailSequence
+		, receive_mail_address as receiveMailAddr
+		, receive_type_code as receiveType
+	FROM email_receive_201612
+	WHERE request_id = #{requestId}
+	and mail_seq = 0
+</select>
+   
+</mapper>     
