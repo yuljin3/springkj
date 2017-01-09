@@ -8,14 +8,28 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+ 	<mvc:annotation-driven />
+
+	<!-- <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" /> -->
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+	
+	<!-- Dispatcher servlet에 restful 한 방식의 url매핑을 사용하기 위해 선언 @controller에 매핑되지 않는 url들을 서버의 디폴트 서블릿으로 넘긴다.
+	톰캣, 제티, JBoss, 글래스 피시는 이름이 default, Resin은 resin-file, WebLogic은 FileServlet, WebSphere는 SimpleFileServlet이다. 
+	이 서버들의 디폴트 서블릿 이름은 자동으로 찾아준다. 
+	그 외의 서버라면 디폴트 서블릿 이름을 직접 주면 된다. 
+	보통 서버의 설정 폴더에 보면 디폴트 web.xml이 다 나와있다. 
+	그걸 열어보면 디폴트 서블릿 이름을 알 수 있다. 
+	톰캣이라면 conf 밑의 web.xml에서 찾을 수 있다.
+	 -->
+	<mvc:default-servlet-handler />
+	
 	<context:component-scan base-package="com.kji.study">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
-	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order" value="0" />
-	</bean>
 
-	<mvc:default-servlet-handler />
 
 </beans>
