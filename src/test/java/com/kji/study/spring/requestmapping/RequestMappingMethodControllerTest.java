@@ -59,11 +59,23 @@ public class RequestMappingMethodControllerTest {
 		mockMvc.perform(get("/method/type")).andExpect(status().isOk()).andExpect(forwardedUrl("typeNormal"));
 	}
 
+	/**
+	 * param url의 경우 param 변수로 들어오는 값에 따라 
+	 * yes(param=yes) , no(param=no) , param이 존재하지 않는 경우(!param)로 리턴 페이지가 결정된다.   
+	 */
 	@Test
 	public void testParams2() throws Exception {
 		mockMvc.perform(get("/method/param?param=yes")).andExpect(status().isOk()).andExpect(forwardedUrl("paramYes"));
 		mockMvc.perform(get("/method/param?param=no")).andExpect(status().isOk()).andExpect(forwardedUrl("paramNo"));
 		mockMvc.perform(get("/method/param?noParam=1")).andExpect(status().isOk()).andExpect(forwardedUrl("notParam"));
+	}
+
+	/**
+	 * header에 값을 확인하여 해당 header 값이 존재 할 때만 url 맵핑  
+	 **/
+	@Test
+	public void testHeader() throws Exception {
+		mockMvc.perform(get("/method/header").header("content-type", "text/*")).andExpect(status().isOk()).andExpect(forwardedUrl("headerFilterd"));
 	}
 
 }

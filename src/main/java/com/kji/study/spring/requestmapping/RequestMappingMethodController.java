@@ -47,4 +47,9 @@ public class RequestMappingMethodController {
 	public String typeNotParam() {
 		return "notParam";
 	}
+
+	@RequestMapping(value = "/header", headers = "content-type=text/*")
+	public String headerFilterUrl() {
+		return "headerFilterd";
+	}
 }

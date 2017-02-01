@@ -13,6 +13,30 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<!-- @RequestController 를 사용하기 위해서 jackson converter를 설정해줘야 한다. -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMessageConverter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- AnnotationMethod -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="webBindingInitializer">
+            <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+                <property name="validator" ref="validator"/>
+            </bean>
+        </property>
+    </bean>
+ 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	
+	<bean id="bindingErrorProcessor" class="com.kji.study.validation.ControlBindingErrorProcessor"/>
+	
+	<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	
 	<bean id="documentationController" class="org.jsondoc.springmvc.controller.JSONDocController">
 		<constructor-arg name="version" value="1.0" />
 		<constructor-arg name="basePath" value="http://localhost:8080" />
