@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kji.study.mybatis.generator.dao.EmailMapper">
+  <resultMap id="BaseResultMap" type="com.kji.study.mybatis.generator.model.Email">
+    <id column="request_id" jdbcType="VARCHAR" property="requestId" />
+    <result column="service_id" jdbcType="BIGINT" property="serviceId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="request_ip" jdbcType="VARCHAR" property="requestIp" />
+    <result column="attach_file_yn" jdbcType="CHAR" property="attachFileYn" />
+    <result column="request_date" jdbcType="TIMESTAMP" property="requestDate" />
+    <result column="group_yn" jdbcType="CHAR" property="groupYn" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    request_id, service_id, title, request_ip, attach_file_yn, request_date, group_yn, 
+    create_user, create_date
+  </sql>
+  <select id="selectByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from email_master
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from email_master
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition">
+    delete from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kji.study.mybatis.generator.model.Email">
+    insert into email_master (request_id, service_id, title, 
+      request_ip, attach_file_yn, request_date, 
+      group_yn, create_user, create_date
+      )
+    values (#{requestId,jdbcType=VARCHAR}, #{serviceId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{requestIp,jdbcType=VARCHAR}, #{attachFileYn,jdbcType=CHAR}, #{requestDate,jdbcType=TIMESTAMP}, 
+      #{groupYn,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kji.study.mybatis.generator.model.Email">
+    insert into email_master
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="requestId != null">
+        request_id,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="requestIp != null">
+        request_ip,
+      </if>
+      <if test="attachFileYn != null">
+        attach_file_yn,
+      </if>
+      <if test="requestDate != null">
+        request_date,
+      </if>
+      <if test="groupYn != null">
+        group_yn,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="requestId != null">
+        #{requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requestIp != null">
+        #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachFileYn != null">
+        #{attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="requestDate != null">
+        #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupYn != null">
+        #{groupYn,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition" resultType="java.lang.Long">
+    select count(*) from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update email_master
+    <set>
+      <if test="record.requestId != null">
+        request_id = #{record.requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestIp != null">
+        request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachFileYn != null">
+        attach_file_yn = #{record.attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="record.requestDate != null">
+        request_date = #{record.requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.groupYn != null">
+        group_yn = #{record.groupYn,jdbcType=CHAR},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update email_master
+    set request_id = #{record.requestId,jdbcType=VARCHAR},
+      service_id = #{record.serviceId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      attach_file_yn = #{record.attachFileYn,jdbcType=CHAR},
+      request_date = #{record.requestDate,jdbcType=TIMESTAMP},
+      group_yn = #{record.groupYn,jdbcType=CHAR},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kji.study.mybatis.generator.model.Email">
+    update email_master
+    <set>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requestIp != null">
+        request_ip = #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachFileYn != null">
+        attach_file_yn = #{attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="requestDate != null">
+        request_date = #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupYn != null">
+        group_yn = #{groupYn,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kji.study.mybatis.generator.model.Email">
+    update email_master
+    set service_id = #{serviceId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      request_ip = #{requestIp,jdbcType=VARCHAR},
+      attach_file_yn = #{attachFileYn,jdbcType=CHAR},
+      request_date = #{requestDate,jdbcType=TIMESTAMP},
+      group_yn = #{groupYn,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kji.study.mybatis.generator.model.Email">
+    <id column="request_id" jdbcType="VARCHAR" property="requestId" />
+    <result column="service_id" jdbcType="BIGINT" property="serviceId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="request_ip" jdbcType="VARCHAR" property="requestIp" />
+    <result column="attach_file_yn" jdbcType="CHAR" property="attachFileYn" />
+    <result column="request_date" jdbcType="TIMESTAMP" property="requestDate" />
+    <result column="group_yn" jdbcType="CHAR" property="groupYn" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    request_id, service_id, title, request_ip, attach_file_yn, request_date, group_yn, 
+    create_user, create_date
+  </sql>
+  <select id="selectByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from email_master
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from email_master
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition">
+    delete from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kji.study.mybatis.generator.model.Email">
+    insert into email_master (request_id, service_id, title, 
+      request_ip, attach_file_yn, request_date, 
+      group_yn, create_user, create_date
+      )
+    values (#{requestId,jdbcType=VARCHAR}, #{serviceId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{requestIp,jdbcType=VARCHAR}, #{attachFileYn,jdbcType=CHAR}, #{requestDate,jdbcType=TIMESTAMP}, 
+      #{groupYn,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kji.study.mybatis.generator.model.Email">
+    insert into email_master
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="requestId != null">
+        request_id,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="requestIp != null">
+        request_ip,
+      </if>
+      <if test="attachFileYn != null">
+        attach_file_yn,
+      </if>
+      <if test="requestDate != null">
+        request_date,
+      </if>
+      <if test="groupYn != null">
+        group_yn,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="requestId != null">
+        #{requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requestIp != null">
+        #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachFileYn != null">
+        #{attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="requestDate != null">
+        #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupYn != null">
+        #{groupYn,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition" resultType="java.lang.Long">
+    select count(*) from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update email_master
+    <set>
+      <if test="record.requestId != null">
+        request_id = #{record.requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestIp != null">
+        request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachFileYn != null">
+        attach_file_yn = #{record.attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="record.requestDate != null">
+        request_date = #{record.requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.groupYn != null">
+        group_yn = #{record.groupYn,jdbcType=CHAR},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update email_master
+    set request_id = #{record.requestId,jdbcType=VARCHAR},
+      service_id = #{record.serviceId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      attach_file_yn = #{record.attachFileYn,jdbcType=CHAR},
+      request_date = #{record.requestDate,jdbcType=TIMESTAMP},
+      group_yn = #{record.groupYn,jdbcType=CHAR},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kji.study.mybatis.generator.model.Email">
+    update email_master
+    <set>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requestIp != null">
+        request_ip = #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachFileYn != null">
+        attach_file_yn = #{attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="requestDate != null">
+        request_date = #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupYn != null">
+        group_yn = #{groupYn,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kji.study.mybatis.generator.model.Email">
+    update email_master
+    set service_id = #{serviceId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      request_ip = #{requestIp,jdbcType=VARCHAR},
+      attach_file_yn = #{attachFileYn,jdbcType=CHAR},
+      request_date = #{requestDate,jdbcType=TIMESTAMP},
+      group_yn = #{groupYn,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.kji.study.mybatis.generator.model.Email">
+    <id column="request_id" jdbcType="VARCHAR" property="requestId" />
+    <result column="service_id" jdbcType="BIGINT" property="serviceId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="request_ip" jdbcType="VARCHAR" property="requestIp" />
+    <result column="attach_file_yn" jdbcType="CHAR" property="attachFileYn" />
+    <result column="request_date" jdbcType="TIMESTAMP" property="requestDate" />
+    <result column="group_yn" jdbcType="CHAR" property="groupYn" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    request_id, service_id, title, request_ip, attach_file_yn, request_date, group_yn, 
+    create_user, create_date
+  </sql>
+  <select id="selectByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from email_master
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from email_master
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition">
+    delete from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kji.study.mybatis.generator.model.Email">
+    insert into email_master (request_id, service_id, title, 
+      request_ip, attach_file_yn, request_date, 
+      group_yn, create_user, create_date
+      )
+    values (#{requestId,jdbcType=VARCHAR}, #{serviceId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{requestIp,jdbcType=VARCHAR}, #{attachFileYn,jdbcType=CHAR}, #{requestDate,jdbcType=TIMESTAMP}, 
+      #{groupYn,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kji.study.mybatis.generator.model.Email">
+    insert into email_master
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="requestId != null">
+        request_id,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="requestIp != null">
+        request_ip,
+      </if>
+      <if test="attachFileYn != null">
+        attach_file_yn,
+      </if>
+      <if test="requestDate != null">
+        request_date,
+      </if>
+      <if test="groupYn != null">
+        group_yn,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="requestId != null">
+        #{requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requestIp != null">
+        #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachFileYn != null">
+        #{attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="requestDate != null">
+        #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupYn != null">
+        #{groupYn,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kji.study.mybatis.generator.model.EmailCondition" resultType="java.lang.Long">
+    select count(*) from email_master
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update email_master
+    <set>
+      <if test="record.requestId != null">
+        request_id = #{record.requestId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestIp != null">
+        request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachFileYn != null">
+        attach_file_yn = #{record.attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="record.requestDate != null">
+        request_date = #{record.requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.groupYn != null">
+        group_yn = #{record.groupYn,jdbcType=CHAR},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update email_master
+    set request_id = #{record.requestId,jdbcType=VARCHAR},
+      service_id = #{record.serviceId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      attach_file_yn = #{record.attachFileYn,jdbcType=CHAR},
+      request_date = #{record.requestDate,jdbcType=TIMESTAMP},
+      group_yn = #{record.groupYn,jdbcType=CHAR},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kji.study.mybatis.generator.model.Email">
+    update email_master
+    <set>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requestIp != null">
+        request_ip = #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachFileYn != null">
+        attach_file_yn = #{attachFileYn,jdbcType=CHAR},
+      </if>
+      <if test="requestDate != null">
+        request_date = #{requestDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupYn != null">
+        group_yn = #{groupYn,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kji.study.mybatis.generator.model.Email">
+    update email_master
+    set service_id = #{serviceId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      request_ip = #{requestIp,jdbcType=VARCHAR},
+      attach_file_yn = #{attachFileYn,jdbcType=CHAR},
+      request_date = #{requestDate,jdbcType=TIMESTAMP},
+      group_yn = #{groupYn,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where request_id = #{requestId,jdbcType=VARCHAR}
+  </update>
+</mapper>

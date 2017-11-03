@@ -69,6 +69,7 @@
 		<mapper resource="mybatis/ReceiverMapper.xml"/>
 		<mapper class="com.kji.study.mybatis.origin.ReceiverJavaMapper"/>
 		<!--<package name="com.kji.study.mybatis.origin"/> -->
+		<package name="com.kji.study.mybatis.generator"/>
 	</mappers>
 	
 </configuration>

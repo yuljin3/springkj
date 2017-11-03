@@ -1,0 +1,69 @@
+setInterval(checkPocketList, 30000);
+
+
+
+function checkPocketList() {
+$.ajax({
+      type: 'GET',
+      url: 'https://seoulpokemap.com/query2.php?since=0&mons=143,149',
+	  success : function (data) {
+		var list = data['pokemons'];
+		var meta = data['meta'];
+
+		var timeOffset = Math.floor(Date.now() / 1000) - parseInt(meta['time']);	
+
+	console.log("############# api call ############");		    
+        for (var i = 0; i < list.length; ++i) {
+            var attack = eval(list[i]['attack']);
+            var defence = eval(list[i]['defence']);
+            var stamina = eval(list[i]['stamina']);
+
+	  var despawn = parseInt(list[i]['despawn']);
+
+	var currentUnixTime = Math.floor(Date.now() / 1000) - timeOffset;
+          var remain = despawn - currentUnixTime;
+
+			var total = attack + defence + stamina;
+			
+			var poketId = list[i]['pokemon_id'];
+			
+			var poketName = "";
+
+			if (poketId == 143) {
+				poketName = "jammanbo";
+			}
+
+			if (poketId == 149) {
+				poketName = "mangnanyong";	
+			}
+			console.log(poketName + ":" + total + "[" + timeToString(remain) + "]" );
+
+			if (total > 40) {
+            			 alert(poketName + ":" + total);
+			}
+
+        }
+
+      }  
+});
+}
+
+
+function timeToString(seconds) {
+  if (seconds < 0) {
+    return 'Expired';
+  }
+  var minutes = Math.floor(seconds / 60);
+  var seconds = seconds % 60;
+  
+  var minuteString = '' + minutes;
+  var secondString = '' + seconds;
+  
+  if (minutes < 10) {
+    minuteString = '0' + minuteString;
+  }
+  if (seconds < 10) {
+    secondString = '0' + secondString;
+  }
+  return minuteString + ':' + secondString;
+}

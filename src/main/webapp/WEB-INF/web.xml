@@ -28,7 +28,7 @@
 	</context-param>
 	
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>com.kji.study.servlet.TestListener</listener-class>
 	</listener>
 	
 	<servlet>
